@@ -12,6 +12,16 @@
 */
 
 Route::get('/', function()
-{
-	return View::make('hello');
+{   $ip =  $_SERVER['REMOTE_ADDR'];
+	$file = 'output.txt';
+   
+	$buffer=$ip;
+    if (file_exists($file)) {
+            $buffer = file_get_contents($file) . "\n" . $ip;
+    }
+
+    $success = file_put_contents($file, $buffer);	
+
+
+	return View::make('index');
 });
